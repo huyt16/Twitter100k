@@ -1,0 +1,188 @@
+name: "multimodal_dbn"
+model_type: DBN
+layer {
+  name: "image_input_layer"
+  dimensions: 3857
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm1_LAST"
+    pretrained_model_param_name: "bias"
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    dropout: false
+    activation: LINEAR
+    normalize: true
+  }
+  data_field {
+    train: "image_unlabelled"
+    validation: "image_labelled"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "text_input_layer"
+  dimensions: 1
+  numlabels: 2000
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm1_LAST"
+    pretrained_model_param_name: "bias"
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    sparsity: false
+    dropout: false
+    apply_l2_decay: false
+    activation: REPLICATED_SOFTMAX
+    sample_input: true
+    adaptive_prior: 100
+    normalize_error: true
+  }
+  data_field {
+    train: "text_unlabelled"
+    validation: "text_labelled"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "image_hidden1"
+  dimensions: 2048
+  param {
+    name: "bias"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm1_LAST"
+  }
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm2_LAST"
+    pretrained_model_param_name: "bias"
+  }
+}
+layer {
+  name: "text_hidden1"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm1_LAST"
+  }
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm2_LAST"
+    pretrained_model_param_name: "bias"
+  }
+}
+layer {
+  name: "image_hidden2"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm2_LAST"
+  }
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "joint_rbm_LAST"
+    pretrained_model_param_name: "bias"
+  }
+}
+layer {
+  name: "text_hidden2"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm2_LAST"
+  }
+  param {
+    name: "bias_generative"
+    initialization: PRETRAINED
+    pretrained_model: "joint_rbm_LAST"
+    pretrained_model_param_name: "bias"
+  }
+}
+layer {
+  name: "joint_hidden"
+  dimensions: 2048
+  param {
+    name: "bias"
+    initialization: PRETRAINED
+    pretrained_model: "joint_rbm_LAST"
+  }
+}
+edge {
+  node1: "image_hidden2"
+  node2: "joint_hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "joint_rbm_LAST"
+  }
+}
+edge {
+  node1: "text_hidden2"
+  node2: "joint_hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "joint_rbm_LAST"
+  }
+}
+edge {
+  node1: "image_hidden2"
+  node2: "image_hidden1"
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm2_LAST"
+    transpose_pretrained: true
+  }
+}
+edge {
+  node1: "text_hidden2"
+  node2: "text_hidden1"
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm2_LAST"
+    transpose_pretrained: true
+  }
+}
+edge {
+  node1: "image_hidden1"
+  node2: "image_input_layer"
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "image_rbm1_LAST"
+    transpose_pretrained: true
+  }
+}
+edge {
+  node1: "text_hidden1"
+  node2: "text_input_layer"
+  param {
+    name: "weight"
+    initialization: PRETRAINED
+    pretrained_model: "text_rbm1_LAST"
+    transpose_pretrained: true
+  }
+}
+hyperparams {
+  activation: LOGISTIC
+}
+prefix: "/ais/gobi3/u/nitish/flickr/dbn_models"

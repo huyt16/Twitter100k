@@ -1,0 +1,13 @@
+optimizer: CD
+stopcondition {
+  all_processed: false
+  steps: 20000
+}
+train: true
+batchsize: 231
+data_proto: "flickr30k.pbtxt"
+eval_after: 1000
+checkpoint_after: 20000
+checkpoint_directory: "data/rbm_models"
+randomize: true
+data_proto_prefix: "../data/"

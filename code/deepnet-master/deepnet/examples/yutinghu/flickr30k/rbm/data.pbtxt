@@ -1,0 +1,220 @@
+name: "data"
+data {
+  name: "train_lab_data"
+  file_pattern: "../../../data/train_lab_data.npy"
+  size: 75000
+  dimensions: 1
+}
+data {
+  name: "validation_lab_data"
+  file_pattern: "../../../data/validation_lab_data.npy"
+  size: 8915
+  dimensions: 1
+}
+data {
+  name: "test_lab_data"
+  file_pattern: "../../../data/test_lab_data.npy"
+  size: 75000
+  dimensions: 1
+}
+data {
+  name: "image_hidden1_validation"
+  file_pattern: "image_rbm1_LAST/validation/image_hidden1-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "image_hidden1_test"
+  file_pattern: "image_rbm1_LAST/test/image_hidden1-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "image_hidden1_train"
+  file_pattern: "image_rbm1_LAST/train/image_hidden1-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden1_validation"
+  file_pattern: "text_rbm1_LAST/validation/text_hidden1-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "text_hidden1_test"
+  file_pattern: "text_rbm1_LAST/test/text_hidden1-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden1_train"
+  file_pattern: "text_rbm1_LAST/train/text_hidden1-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "image_hidden2_validation"
+  file_pattern: "image_rbm2_LAST/validation/image_hidden2-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "image_hidden2_test"
+  file_pattern: "image_rbm2_LAST/test/image_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "image_hidden2_train"
+  file_pattern: "image_rbm2_LAST/train/image_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden2_validation"
+  file_pattern: "text_rbm2_LAST/validation/text_hidden2-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "text_hidden2_test"
+  file_pattern: "text_rbm2_LAST/test/text_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden2_train"
+  file_pattern: "text_rbm2_LAST/train/text_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "image_hidden3_validation"
+  file_pattern: "image_rbm3_LAST/validation/image_hidden3-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "image_hidden3_test"
+  file_pattern: "image_rbm3_LAST/test/image_hidden3-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "image_hidden3_train"
+  file_pattern: "image_rbm3_LAST/train/image_hidden3-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden3_validation"
+  file_pattern: "text_rbm3_LAST/validation/text_hidden3-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "text_hidden3_test"
+  file_pattern: "text_rbm3_LAST/test/text_hidden3-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "text_hidden3_train"
+  file_pattern: "text_rbm3_LAST/train/text_hidden3-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_image_hidden2_validation"
+  file_pattern: "bae_joint_layer2/validation/image_hidden2-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "bae_image_hidden2_test"
+  file_pattern: "bae_joint_layer2/test/image_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_image_hidden2_train"
+  file_pattern: "bae_joint_layer2/train/image_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_text_hidden2_validation"
+  file_pattern: "bae_joint_layer2/validation/text_hidden2-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "bae_text_hidden2_test"
+  file_pattern: "bae_joint_layer2/test/text_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_text_hidden2_train"
+  file_pattern: "bae_joint_layer2/train/text_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_image_hidden2_train_all"
+  file_pattern: "bae_joint_layer2/train_all/image_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_text_hidden2_train_all"
+  file_pattern: "bae_joint_layer2/train_all/text_hidden2-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "bae_train_lab_data"
+  file_pattern: "../../../data/bae_train_lab_data.npy"
+  size: 75000
+  dimensions: 1
+}
+data {
+  name: "corr_image_hidden1_validation"
+  file_pattern: "corr_rbm1_LAST/validation/image_tied_hidden-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "corr_image_hidden1_test"
+  file_pattern: "corr_rbm1_LAST/test/image_tied_hidden-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "corr_image_hidden1_train"
+  file_pattern: "corr_rbm1_LAST/train/image_tied_hidden-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "corr_text_hidden1_validation"
+  file_pattern: "corr_rbm1_LAST/validation/text_tied_hidden-*-of-*.npy"
+  size: 8915
+  dimensions: 1024
+}
+data {
+  name: "corr_text_hidden1_test"
+  file_pattern: "corr_rbm1_LAST/test/text_tied_hidden-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+data {
+  name: "corr_text_hidden1_train"
+  file_pattern: "corr_rbm1_LAST/train/text_tied_hidden-*-of-*.npy"
+  size: 75000
+  dimensions: 1024
+}
+gpu_memory: "4G"
+main_memory: "30G"
+prefix: "data/rbm_reps"

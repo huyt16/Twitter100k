@@ -1,0 +1,69 @@
+name: "image_rbm2"
+model_type: DBM
+layer {
+  name: "image_hidden1"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    sparsity: false
+    apply_l2_decay: false
+    enable_display: false
+  }
+  data_field {
+    train: "image_hidden1_train"
+    validation: "image_hidden1_validation"
+    test: "image_hidden1_test"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "image_hidden2"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+    enable_display: false
+  }
+  performance_stats {
+    compute_sparsity: true
+  }
+}
+edge {
+  node1: "image_hidden1"
+  node2: "image_hidden2"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+hyperparams {
+  base_epsilon: 0.05
+  epsilon_decay: INVERSE_T
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.5
+  final_momentum: 0.9
+  momentum_change_steps: 10000
+  sparsity: true
+  sparsity_target: 0.2
+  sparsity_cost: 0.01
+  sparsity_damping: 0.9
+  apply_l2_decay: true
+  l2_decay: 0.001
+  activation: LOGISTIC
+  mf_steps: 1
+  gibbs_steps: 1
+  step_up_cd_after: 5000
+  start_step_up_cd_after: 15000
+}

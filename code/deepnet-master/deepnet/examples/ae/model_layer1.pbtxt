@@ -1,0 +1,95 @@
+name: "mnist_autoencoder_relu"
+model_type: FEED_FORWARD_NET
+layer {
+  name: "input_layer"
+  dimensions: 784
+  is_input: true
+  hyperparams {
+    dropout_prob: 0.0
+    activation: LOGISTIC
+    enable_display: false
+  }
+  data_field {
+    train: "train_data"
+    validation: "validation_data"
+    test: "test_data"
+  }
+  shape: 28
+  shape: 28
+}
+layer {
+  name: "hidden1"
+  dimensions: 256
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+layer {
+  name: "output_layer"
+  dimensions: 784
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_output: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    dropout: false
+    activation: LOGISTIC
+    enable_display: false
+  }
+  data_field {
+    tied: true
+    tied_to: "input_layer"
+  }
+  performance_stats {
+    compute_correct_preds: false
+    compute_cross_entropy: false
+    compute_error: true
+  }
+}
+edge {
+  node1: "input_layer"
+  node2: "hidden1"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+  receptive_field_width: 28
+  display_rows: 16
+  display_cols: 16
+}
+edge {
+  node1: "hidden1"
+  node2: "output_layer"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+  hyperparams {
+    enable_display: false
+  }
+}
+hyperparams {
+  base_epsilon: 0.1
+  epsilon_decay: NONE
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.5
+  final_momentum: 0.9
+  momentum_change_steps: 50000
+  sparsity: false
+  sparsity_target: 0.1
+  sparsity_cost: 0.001
+  sparsity_damping: 0.9
+  dropout: false
+  dropout_prob: 0.5
+  apply_weight_norm: false
+  weight_norm: 3.0
+  apply_l2_decay: true
+  l2_decay: 0.001
+  activation: RECTIFIED_LINEAR
+  enable_display: false
+}

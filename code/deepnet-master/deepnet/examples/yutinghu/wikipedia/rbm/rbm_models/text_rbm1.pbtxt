@@ -1,0 +1,74 @@
+name: "text_rbm1"
+model_type: DBM
+layer {
+  name: "text_input_layer"
+  dimensions: 1
+  numlabels: 5000
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    sparsity: false
+    apply_l2_decay: false
+    activation: REPLICATED_SOFTMAX
+    sample_input: false
+    normalize_error: true
+  }
+  data_field {
+    train: "train_txt_data"
+    validation: "validation_txt_data"
+    test: "test_txt_data"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "text_hidden1"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+    enable_display: false
+  }
+  performance_stats {
+    compute_sparsity: true
+  }
+}
+edge {
+  node1: "text_input_layer"
+  node2: "text_hidden1"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN
+    sigma: 1e-05
+  }
+  up_factor: 10.0
+}
+hyperparams {
+  base_epsilon: 0.1
+  epsilon_decay: INVERSE_T
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.5
+  final_momentum: 0.9
+  momentum_change_steps: 5000
+  sparsity: true
+  sparsity_target: 0.2
+  sparsity_cost: 0.01
+  sparsity_damping: 0.9
+  apply_l2_decay: true
+  l2_decay: 0.0001
+  activation: LOGISTIC
+  mf_steps: 1
+  gibbs_steps: 1
+  step_up_cd_after: 5000
+  sample_input_after: 5000
+  start_step_up_cd_after: 15000
+}

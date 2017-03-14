@@ -1,0 +1,14 @@
+optimizer: CD
+stopcondition {
+  all_processed: false
+  steps: 20000
+}
+train: true
+batchsize: 500
+data_proto: "twitter100k.pbtxt"
+eval_after: 1000
+checkpoint_after: 20000
+checkpoint_directory: "data/rbm_models"
+randomize: true
+verbose: false
+data_proto_prefix: "../data"

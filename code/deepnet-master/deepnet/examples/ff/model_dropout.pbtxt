@@ -1,0 +1,118 @@
+name: "mnist_3layer_relu_dropout"
+model_type: FEED_FORWARD_NET
+layer {
+  name: "input_layer"
+  dimensions: 784
+  is_input: true
+  hyperparams {
+    dropout_prob: 0.2
+    activation: LOGISTIC
+  }
+  data_field {
+    train: "train_data"
+    validation: "validation_data"
+    test: "test_data"
+  }
+}
+layer {
+  name: "output_layer"
+  dimensions: 1
+  numlabels: 10
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_output: true
+  loss_function: CROSS_ENTROPY
+  hyperparams {
+    sparsity: false
+    dropout: false
+    apply_l2_decay: false
+    activation: SOFTMAX
+    enable_display: false
+  }
+  data_field {
+    train: "train_labels"
+    validation: "validation_labels"
+    test: "test_labels"
+  }
+  performance_stats {
+    compute_correct_preds: true
+    compute_cross_entropy: true
+  }
+}
+layer {
+  name: "hidden1"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+layer {
+  name: "hidden2"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+layer {
+  name: "hidden3"
+  dimensions: 2048
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+edge {
+  node1: "input_layer"
+  node2: "hidden1"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+  }
+}
+edge {
+  node1: "hidden1"
+  node2: "hidden2"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "hidden2"
+  node2: "hidden3"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "hidden3"
+  node2: "output_layer"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+hyperparams {
+  base_epsilon: 1.0
+  epsilon_decay: INVERSE_T
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.5
+  final_momentum: 0.99
+  momentum_change_steps: 100000
+  dropout: true
+  dropout_prob: 0.5
+  apply_weight_norm: true
+  weight_norm: 3.0
+  apply_l2_decay: false
+  activation: RECTIFIED_LINEAR
+  adapt: NO_ADAPT
+}
+seed: 42

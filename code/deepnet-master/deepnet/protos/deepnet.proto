@@ -1,0 +1,325 @@
+// Protocol buffer description for deepnet models.
+// To compile:
+// protoc -I=protos/ --python_out=. protos/deepnet.proto
+
+package deepnet;
+
+message Layer {
+  required string name = 1;
+  optional string file_pattern = 2;
+  required int32 dimensions = 3;
+  optional int32 numlabels = 4 [default=1];
+  repeated deepnet.Parameter param = 5;
+  optional bool is_input = 7 [default=false];
+  optional bool is_output = 8 [default=false];
+  enum LossFunction {
+    SQUARED_LOSS = 0;
+    CROSS_ENTROPY = 1;
+    HINGE_LOSS = 2;
+  }
+  optional LossFunction loss_function = 9 [default=SQUARED_LOSS];
+  optional deepnet.Hyperparams hyperparams = 10;
+  message DataField {
+    optional string train = 1; 
+    optional string validation = 2; 
+    optional string test = 3;
+    // Data will be forward passed through this model and used as input.
+    optional string model = 4;
+    // The layer in the above model whose data is going to be the input.
+    optional string layer_name = 5;
+    optional bool tied = 6 [default=false];
+    optional string tied_to = 7;
+  } 
+  optional DataField data_field = 11;
+  optional deepnet.Metrics performance_stats = 12;
+  repeated int32 shape = 13;
+  optional bool is_initialized = 14 [default=false];
+  optional string prefix = 15;
+  optional bool replicate_bias = 16 [default=true];
+
+  // Tying bias parameter.
+  optional bool tied = 17 [default=false];
+  optional string tied_to = 18;
+  
+  optional float loss_weight = 19 [default=1.0];
+  
+  // Add by Fangxiang Feng
+  optional float loss_factor = 20 [default=1.0];
+  
+  optional bool rep_tied = 21 [default=false];
+  optional string rep_tied_to = 22;
+  optional float rep_tied_lambda = 23 [default=1.0];
+  enum Dist {
+    L2 = 0;
+    L1 = 1;
+    COS = 2;
+    KL = 3;
+  }
+  optional Dist rep_tied_dist = 24 [default=L2];
+  optional Dist rep_tied_eval_dist = 25 [default=COS];
+}
+
+message Parameter {
+  required string name = 1;
+  optional bytes mat = 2;
+  repeated int32 dimensions = 3;
+  enum Initialization {
+      DENSE_GAUSSIAN = 0;
+      SPARSE_GAUSSIAN = 1;
+      CONSTANT = 2;
+      DENSE_GAUSSIAN_SQRT_FAN_IN = 3;
+      PRETRAINED = 4;
+      DENSE_UNIFORM = 5;
+      DENSE_UNIFORM_SQRT_FAN_IN = 6;
+  }
+  optional Initialization initialization = 4 [default=CONSTANT];
+  optional float sigma = 5 [default=0.001];
+  optional float constant = 6 [default=0.0];
+  optional bool conv = 7 [default=false];
+  message Convolution {
+    optional int32 size = 1 [default=0];
+    optional int32 stride = 2 [default=0];
+    optional int32 padding = 3 [default=0];
+    optional int32 num_filters = 4 [default=0];
+    optional int32 num_colors = 5 [default=0];
+    optional bool max_pool = 6 [default=false];
+    optional int32 pool_size = 7 [default=0];
+    optional int32 pool_stride = 8 [default=0];
+    optional bool rnorm = 9 [default=false];
+    optional int32 norm_size = 10 [default=0];
+    optional float pow_scale = 11 [default=0.75];
+    optional float add_scale = 12 [default=0.001];
+    optional bool prob = 13 [default=false];  //probabilistic max_pool
+  }
+  optional Convolution conv_params = 8;
+  repeated string pretrained_model = 9;
+  optional string pretrained_model_node1 = 10;
+  optional string pretrained_model_node2 = 11;
+  optional bool transpose_pretrained = 12 [default=false];
+  optional string pretrained_model_param_name = 13;
+  optional bool local = 14 [default=false];
+  optional float mult_factor = 15[default=1.0];
+}
+
+message Hyperparams {
+  optional float base_epsilon = 1 [default=0.01];
+  enum Decay {
+    NONE = 0;
+    INVERSE_T = 1;
+    EXPONENTIAL = 2;
+  }
+  optional Decay epsilon_decay = 2 [default=NONE];
+  optional int32 epsilon_decay_half_life = 3 [default=1000];
+  optional float initial_momentum = 4 [default=0.0];
+  optional float final_momentum = 5 [default=0.0];
+  optional int32 momentum_change_steps = 6 [default=10];
+  optional bool sparsity = 7 [default=false];
+  optional float sparsity_target = 8 [default=0.1];
+  optional float sparsity_cost = 9 [default=0.001];
+  optional float sparsity_damping = 10 [default=0.9];
+  optional bool dropout = 11 [default=false];
+  optional float dropout_prob = 12 [default=0.5];
+  optional bool apply_weight_norm = 13 [default=false];
+  optional float weight_norm = 14 [default=10];
+  optional bool apply_l2_decay = 15 [default=false];
+  optional float l2_decay = 16 [default=0.01];
+  enum Activation {
+    LINEAR = 0;
+    LOGISTIC = 1;
+    TANH = 2;
+    RECTIFIED_LINEAR = 3;
+    RECTIFIED_LINEAR_SMOOTH = 4;
+    SOFTMAX = 5;
+    REPLICATED_SOFTMAX = 6;
+    SIN = 7;
+    COS = 8;
+  }
+  optional Activation activation = 17 [default=LINEAR];
+  optional int32 left_window = 18 [default=0];
+  optional int32 right_window = 19 [default=0];
+  optional int32 mf_steps = 20 [default=1];
+  optional int32 gibbs_steps = 21 [default=1];
+  enum Adapt {
+    NO_ADAPT = 0;
+    ADAGRAD = 1;
+  }
+  optional Adapt adapt = 24 [default=NO_ADAPT];
+  optional int32 stop_dropout_for_last = 25 [default=0];
+  optional bool enable_display = 26 [default=false];
+  optional bool normalize = 27 [default=false];
+  optional float normalize_to = 28 [default=1.0];  // Replicated Softmax.
+  optional int32 start_learning_after = 29 [default=0];
+  optional int32 step_up_cd_after = 30 [default=0];
+  optional int32 decay_learning_rate_for_last = 31 [default=0];
+  optional bool learn_precision = 32 [default=false];
+  optional float precision_epsilon = 33 [default=0.0];
+  optional float precision_upper_bound = 34 [default=1.0];
+  optional bool apply_l1_decay = 35 [default=false];
+  optional float l1_decay = 36 [default=0.01];
+  optional int32 apply_l1decay_after = 37 [default=0];
+  optional bool add_noise = 38 [default=false];
+  optional bool shift = 39 [default=false];
+  optional int32 shift_amt_x = 40 [default=0];
+  optional int32 blocksize = 41 [default=1];  // block size for group dropout
+  optional int32 shift_amt_y = 42 [default=0];
+  optional float sc_alpha = 43 [default=0]; // alpha in Predictive Sparse Decomp.
+  optional float sc_beta = 44 [default=0]; // beta in Predictive Sparse Decomp.
+  optional float sc_gamma = 45 [default=0]; // gamma in PSD.
+  optional bool sample_input = 46 [default=false];  // sample inputs when training RBMs.
+  optional bool mult_dropout = 47 [default=false];  // Multiplicative gaussian dropout.
+  optional bool select_model_using_error = 48 [default=false];
+  
+  // In DBMs/RBMs start sampling inputs after these many steps (if sample_input is true).
+  optional int32 sample_input_after = 49 [default=0];
+
+  // Replicated softmax models with replicated priors.
+  optional int32 additive_prior = 50 [default=0];
+  optional int32 multiplicative_prior = 51 [default=0];
+  optional int32 adaptive_prior = 52 [default=0];
+  optional bool normalize_error = 53 [default=false];
+  
+  optional int32 start_step_up_cd_after = 54 [default=0];
+  optional bool select_model_using_acc = 55 [default=false];
+  optional bool select_model_using_map = 56 [default=false];
+
+  optional bool fast_dropout = 57 [default=false];
+  optional float fast_dropout_cost = 58 [default=0];
+
+  optional bool shared_prior = 59 [default=false];
+  optional string shared_prior_file = 60;
+  optional string shared_prior_edge = 61;
+  optional float shared_prior_cost = 62 [default=0.0];
+  optional bool soft_shared_prior = 63 [default=false];
+  optional string label_freq_file = 64;
+  
+  // Add by Fangxiang Feng
+  optional bool select_model_using_restricted = 65 [default=false];
+  enum LabelType {
+    NOLABEL = 0;
+    ONEOFK = 1;
+    MULTILABEL = 2;
+  }
+  optional LabelType label_type = 66 [default=ONEOFK];
+  optional bool alternative = 67 [default=false];
+  optional int32 alternative_size = 68 [default=0];
+  optional bool odd = 69 [default=false];
+  optional int32 map_k = 70 [default=50];
+  optional int32 map_n = 71 [default=5000];
+}
+
+message Edge {
+  required string node1 = 1;
+  required string node2 = 2;
+  optional bool directed = 3 [default=true];
+  repeated deepnet.Parameter param = 4;
+  optional deepnet.Hyperparams hyperparams = 5;
+  optional int32 receptive_field_width = 6 [default=1];
+  optional int32 display_rows = 7 [default=1];
+  optional int32 display_cols = 8 [default=1];
+  optional float up_factor = 9 [default=1];
+  optional float down_factor = 10 [default=1];
+  optional string prefix = 11;
+  optional bool tied = 12[default=false];
+  optional string tied_to_node1 = 13;
+  optional string tied_to_node2 = 14;
+  optional bool tied_transpose = 15[default=false];
+  optional bool block_gradient = 16 [default=false];
+}
+
+message Model {
+  required string name = 1;
+  enum ModelType {
+    FEED_FORWARD_NET=0;
+    RECURRENT_NET=1;
+    DBN=2;
+    DBM=3;
+    SPARSE_CODER=4;
+    FAST_DROPOUT_NET=5;
+  }
+  required ModelType model_type = 2;
+  repeated deepnet.Layer layer = 3;
+  repeated deepnet.Edge edge = 4;
+  optional deepnet.Hyperparams hyperparams = 5;
+  repeated Metrics train_stats = 6;
+  repeated Metrics validation_stats = 7;
+  repeated Metrics test_stats = 8;
+  optional int32 seed = 9 [default=0];
+
+  // For DBMs.
+  repeated string positive_phase_order = 10;
+  repeated string negative_phase_order = 11;
+  optional string initializer_net = 12;
+  optional string prefix = 13;
+
+  // Eary Stopping results.
+  optional Metrics best_valid_stat = 14;  // best validation stat
+  optional Metrics train_stat_es = 15;  // train stat at best validation
+  optional Metrics test_stat_es = 16;  // test stat at best validation
+}
+
+message Operation {
+  enum Optimizer {
+    GRADIENT_DESCENT = 0;
+    LBFGS = 3;
+    CD = 4;
+    PCD = 5;
+  }
+  required Optimizer optimizer = 1;
+  message StopCondition {
+    optional bool all_processed = 1 [default=false];
+    optional int32 steps = 2 [default=0];
+  }
+  required StopCondition stopcondition = 2;
+  optional bool train = 3 [default=false];
+  optional int32 current_step = 4 [default=0];
+  optional int32 batchsize = 5 [default=1];
+  required string data_proto = 6;
+  optional int32 eval_after = 7 [default=1];
+  optional int32 checkpoint_after = 8 [default=1];
+  optional string checkpoint_directory = 9 [default="/tmp/"];
+  optional bool skip_last_piece = 10 [default=true];
+  optional bool randomize = 14 [default=false];
+  optional int32 show_after = 15 [default=0];
+  optional bool verbose = 16 [default=false];
+  optional bool get_last_piece = 17 [default=false];
+  optional string data_proto_prefix = 18;
+  optional string checkpoint_prefix = 19;
+}
+
+message Metrics {
+  optional int32 count = 1 [default=0];
+  optional float correct_preds = 2;
+  optional bool compute_correct_preds = 3 [default=false]; 
+  optional float cross_entropy = 4;
+  optional bool compute_cross_entropy = 5 [default=false]; 
+  optional float error = 6;
+  optional bool compute_error = 7 [default=false]; 
+  optional float MAP = 8;
+  optional bool compute_MAP = 9 [default=false]; 
+  optional float prec50 = 10;
+  optional bool compute_prec50 = 11 [default=false]; 
+  repeated float MAP_list = 12;
+  repeated float prec50_list = 13;
+  optional float sparsity = 14;
+  optional bool compute_sparsity = 15 [default=false]; 
+}
+
+message Dataset {
+  required string name = 1;
+  message Data {
+    required string name = 1;
+    required string file_pattern = 2;
+    required int32 size = 3;
+    repeated int32 dimensions = 4;
+    optional int32 num_labels = 5 [default=1];
+    optional string key = 6;
+    optional bool sparse = 7 [default=false];
+    optional bool seq = 8 [default=false];
+    optional string stats_file = 9;
+  }
+  repeated Data data = 2;
+  optional string gpu_memory = 3 [default="2G"];
+  optional string main_memory = 4 [default="4G"];
+  optional string data_handler = 5 [default="deepnet"];
+  optional string prefix = 6 [default=""];
+}

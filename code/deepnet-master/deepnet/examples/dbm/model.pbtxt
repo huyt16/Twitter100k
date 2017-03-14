@@ -1,0 +1,144 @@
+name: "joint_dbm_from_random"
+model_type: DBM
+layer {
+  name: "input_layer"
+  dimensions: 784
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    dropout: false
+    activation: LOGISTIC
+  }
+  data_field {
+    train: "train_data"
+    validation: "validation_data"
+    test: "test_data"
+  }
+  performance_stats {
+    compute_correct_preds: false
+    compute_cross_entropy: false
+    compute_error: true
+  }
+}
+layer {
+  name: "label_layer"
+  dimensions: 1
+  numlabels: 10
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    dropout: false
+    activation: SOFTMAX
+  }
+  data_field {
+    train: "train_labels"
+    validation: "validation_labels"
+    test: "test_labels"
+  }
+  performance_stats {
+    compute_correct_preds: false
+    compute_cross_entropy: false
+    compute_error: true
+  }
+}
+layer {
+  name: "hidden1"
+  dimensions: 500
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+layer {
+  name: "hidden2"
+  dimensions: 500
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+layer {
+  name: "joint hidden"
+  dimensions: 2000
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+}
+edge {
+  node1: "input_layer"
+  node2: "hidden1"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN
+    sigma: 0.01
+  }
+}
+edge {
+  node1: "hidden1"
+  node2: "hidden2"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN
+    sigma: 0.01
+  }
+  up_factor: 1.0
+}
+edge {
+  node1: "hidden2"
+  node2: "joint hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN
+    sigma: 0.001
+  }
+  down_factor: 1.0
+}
+edge {
+  node1: "label_layer"
+  node2: "joint hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN
+    sigma: 0.01
+  }
+}
+hyperparams {
+  base_epsilon: 0.01
+  epsilon_decay: NONE
+  epsilon_decay_half_life: 5000
+  initial_momentum: 0.0
+  final_momentum: 0.0
+  momentum_change_steps: 10000
+  sparsity: false
+  sparsity_target: 0.1
+  sparsity_cost: 0.001
+  sparsity_damping: 0.9
+  dropout: false
+  dropout_prob: 0.0
+  apply_l2_decay: true
+  l2_decay: 0.0001
+  activation: LOGISTIC
+  mf_steps: 5
+  gibbs_steps: 5
+}
+positive_phase_order: "hidden1"
+positive_phase_order: "joint hidden"
+positive_phase_order: "hidden2"
+negative_phase_order: "input_layer"
+negative_phase_order: "label_layer"
+negative_phase_order: "hidden2"
+negative_phase_order: "hidden1"
+negative_phase_order: "joint hidden"

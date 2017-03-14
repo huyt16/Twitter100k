@@ -1,0 +1,129 @@
+name: "mnist_3layer_relu"
+model_type: FEED_FORWARD_NET
+layer {
+  name: "input_layer"
+  dimensions: 784
+  is_input: true
+  hyperparams {
+    activation: LOGISTIC
+  }
+  data_field {
+    train: "train_data"
+    validation: "validation_data"
+    test: "test_data"
+  }
+}
+layer {
+  name: "output_layer"
+  dimensions: 1
+  numlabels: 10
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_output: true
+  loss_function: CROSS_ENTROPY
+  hyperparams {
+    apply_l2_decay: false
+    activation: SOFTMAX
+  }
+  data_field {
+    train: "train_labels"
+    validation: "validation_labels"
+    test: "test_labels"
+  }
+  performance_stats {
+    compute_correct_preds: true
+    compute_cross_entropy: true
+  }
+}
+layer {
+  name: "hidden1"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+  }
+  performance_stats {
+    compute_sparsity: true
+  }
+}
+layer {
+  name: "hidden2"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+  }
+  performance_stats {
+    compute_sparsity: true
+  }
+}
+layer {
+  name: "hidden3"
+  dimensions: 2048
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+  }
+  performance_stats {
+    compute_sparsity: true
+  }
+}
+edge {
+  node1: "input_layer"
+  node2: "hidden1"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "hidden1"
+  node2: "hidden2"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "hidden2"
+  node2: "hidden3"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "hidden3"
+  node2: "output_layer"
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+hyperparams {
+  base_epsilon: 0.01
+  epsilon_decay: EXPONENTIAL
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.9
+  final_momentum: 0.9
+  momentum_change_steps: 5000
+  apply_l2_decay: true
+  l2_decay: 0.001
+  activation: RECTIFIED_LINEAR
+}
+seed: 42

@@ -1,0 +1,11 @@
+training:
+sh runall_all.sh
+
+evaluation:
+python scripts/corr_results.py train
+python scripts/corr_results.py best // map@50
+python scripts/corr_results.py best_top // top 20%
+
+
+
+

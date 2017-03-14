@@ -1,0 +1,64 @@
+name: "twitter100k"
+data {
+  name: "train_txt_data"
+  file_pattern: "train_txt_data.npy"
+  size: 50000
+  dimensions: 5000
+}
+data {
+  name: "validation_txt_data"
+  file_pattern: "validation_txt_data.npy"
+  size: 10000
+  dimensions: 5000
+}
+data {
+  name: "test_txt_data"
+  file_pattern: "test_txt_data.npy"
+  size: 40000
+  dimensions: 5000
+}
+
+data {
+  name: "train_img_data"
+  file_pattern: "train_img_data.npy"
+  size: 50000
+  dimensions: 4096
+  stats_file: "imgstats.npz"
+}
+data {
+  name: "validation_img_data"
+  file_pattern: "validation_img_data.npy"
+  size:10000
+  dimensions: 4096
+  stats_file: "imgstats.npz"
+}
+data {
+  name: "test_img_data"
+  file_pattern: "test_img_data.npy"
+  size: 40000
+  dimensions: 4096
+  stats_file: "imgstats.npz"
+}
+
+data {
+  name: "train_lab_data"
+  file_pattern: "train_lab_data.npy"
+  size: 50000
+  dimensions: 1
+}
+data {
+  name: "validation_lab_data"
+  file_pattern: "validation_lab_data.npy"
+  size: 10000
+  dimensions: 1
+}
+data {
+  name: "test_lab_data"
+  file_pattern: "test_lab_data.npy"
+  size: 40000
+  dimensions: 1
+}
+
+gpu_memory: "4G"
+main_memory: "20G"
+prefix: "../data"

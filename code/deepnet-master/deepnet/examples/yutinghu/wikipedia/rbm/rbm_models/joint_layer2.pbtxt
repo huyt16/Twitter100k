@@ -1,0 +1,101 @@
+name: "joint_layer2"
+model_type: DBM
+layer {
+  name: "image_layer"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    sparsity: false
+    apply_l2_decay: false
+    enable_display: false
+  }
+  data_field {
+    train: "image_hidden2_train"
+    validation: "image_hidden2_validation"
+    test: "image_hidden2_test"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "text_layer"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  is_input: true
+  loss_function: SQUARED_LOSS
+  hyperparams {
+    sparsity: false
+    apply_l2_decay: false
+  }
+  data_field {
+    train: "text_hidden2_train"
+    validation: "text_hidden2_validation"
+    test: "text_hidden2_test"
+  }
+  performance_stats {
+    compute_error: true
+  }
+}
+layer {
+  name: "joint_hidden"
+  dimensions: 1024
+  param {
+    name: "bias"
+    initialization: CONSTANT
+  }
+  hyperparams {
+    apply_l2_decay: false
+    enable_display: false
+  }
+  performance_stats {
+    compute_sparsity: false
+  }
+}
+edge {
+  node1: "image_layer"
+  node2: "joint_hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+edge {
+  node1: "text_layer"
+  node2: "joint_hidden"
+  directed: false
+  param {
+    name: "weight"
+    initialization: DENSE_GAUSSIAN_SQRT_FAN_IN
+    sigma: 1.0
+  }
+}
+hyperparams {
+  base_epsilon: 0.01
+  epsilon_decay: INVERSE_T
+  epsilon_decay_half_life: 10000
+  initial_momentum: 0.5
+  final_momentum: 0.9
+  momentum_change_steps: 10000
+  sparsity: false
+  sparsity_target: 0.2
+  sparsity_cost: 0.01
+  sparsity_damping: 0.9
+  apply_l2_decay: true
+  l2_decay: 0.001
+  activation: LOGISTIC
+  mf_steps: 1
+  gibbs_steps: 1
+  step_up_cd_after: 5000
+  start_step_up_cd_after: 15000
+}
