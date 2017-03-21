@@ -7,8 +7,8 @@ do
   
   now_dir=${root_dir}/rbm_${i}
   
-#  echo ${i}
-#  cp -r ${src} ${now_dir} || exit 1
+  echo ${i}
+  cp -r ${src} ${now_dir} || exit 1
   
   python scripts/change_hidden.py ${i} ${now_dir} || exit 1
   cd ${now_dir}
