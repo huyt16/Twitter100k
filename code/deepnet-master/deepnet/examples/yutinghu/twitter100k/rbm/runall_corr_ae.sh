@@ -20,7 +20,7 @@ clobber=true
 mkdir -p ${model_output_dir}
 mkdir -p ${data_output_dir}
 
-'''
+
 echo Corr-AEs
 #for i in 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99
 for i in 0.8
@@ -35,7 +35,7 @@ do
       None image_tied_hidden text_tied_hidden || exit 1
   fi
 done
-'''
+
 echo Cross-Corr-AEs
 #for i in 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99
 for i in 0.2
@@ -50,7 +50,7 @@ do
       None image_tied_hidden text_tied_hidden || exit 1
   fi
 done
-'''
+
 echo Full-Corr-AEs
 #for i in 0.01 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.99
 for i in 0.8
@@ -65,4 +65,4 @@ do
       None image_tied_hidden text_tied_hidden || exit 1
   fi
 done
-'''
+
