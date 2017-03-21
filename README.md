@@ -1,7 +1,9 @@
-#Twitter100k: A Real-world Dataset for Weakly Supervised Cross-Media Retrieval
+# Twitter100k: A Real-world Dataset for Weakly Supervised Cross-Media Retrieval
+
 Yuting Hu, Liang Zheng, Yi Yang, and Yongfeng Huang
 
-##Introduction
+## Introduction
+
 This paper contributes a new large-scale dataset for weakly supervised cross-media retrieval, named Twitter100k.
 It is characterized by two aspects: 1) it has 100,000 image-text pairs randomly crawled from Twitter and thus has no constraint in the image categories; 2) text in Twitter100k is written in informal language by the users.
 
@@ -11,25 +13,30 @@ As a minor contribution, inspired by the characteristic of Twitter100k, we propo
 
 Detailed description is provided in our paper.
 
-##Requirements
+## Requirements
+
 - This software is both tested on Windows 10 and CentOS Linux release 7.3.1611.
 - Matlab (tested with R2016a both on Windows and CentOS).
 - Python (tested with 2.7.5 both on Windows and CentOS).
 - <a href="https://github.com/FangxiangFeng/deepnet"> Deepnet</a> and its dependencies. (Copyright is held by the author.)
 
-##How to use the code
-###For subspace learning methods (CCA, PLS, BLM, GMMFA)
+## How to use the code
+
+### For subspace learning methods (CCA, PLS, BLM, GMMFA)
+
 1. download the data of the three benckmark datasets from my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/"> homepage</a> and put them into the folders *feature/* or other folders convenient to you.
 2. modify the dataset name and the data path variables of the script file *run_baseline.m* in *code/GMA-CVPR2012/*.
 3. run the matlab script file *run_baseline.m*.
 4. run *retrieve.py* for a specific dataset.
 
-###For Corr-AE methods
+### For Corr-AE methods
+
 1. download the data of the three benckmark datasets from my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/"> homepage</a> and put them into the folders *feature/* or other folders convenient to you.
 2. run the python script file *genNPYdata.py* in *code/deepnet-master/deepnet/examples/yutinghu/* to generate the input data for Corr-AE methods.
 3. install deepnet and its dependencies with patience following the instruction *INSTALL.TXT* in *code/deepnet-master/*.
 4. run *runall\_all.sh* in *code/deepnet-master/deepnet/examples/yutinghu/wikipedia/* or *flickr30k/*, *twitter100k*.
 5. run *retrieve\_corr\_ae.py* for a specific dataset.
 
-##Result Files
+## Result Files
+
 You can download the results of CMC saved in MAT-file format for direct comparison. 
