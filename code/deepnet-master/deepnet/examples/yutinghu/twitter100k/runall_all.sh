@@ -13,8 +13,8 @@ do
   python scripts/change_hidden.py ${i} ${now_dir} || exit 1
   cd ${now_dir}
 
-#  echo "rbm"
-#  sh runall_rbm.sh || exit 1
+  echo "rbm"
+  sh runall_rbm.sh || exit 1
   
 #  echo "ae"
 #  sh runall_ae.sh || exit 1
