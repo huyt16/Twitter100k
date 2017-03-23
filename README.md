@@ -27,7 +27,7 @@ Detailed description is provided in our paper.
 1. download the data of the three benckmark datasets from my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/"> homepage</a> and put them into the folders *feature/* or other folders convenient to you.
 2. modify the dataset name and the data path variables of the script file *run_baseline.m* in *code/GMA-CVPR2012/*.
 3. run the matlab script file *run_baseline.m*.
-4. run *retrieve.py* for a specific dataset.
+4. run *retrieve.py* for a specific dataset and the results of the rank of ground truth will be saved in *result/rank/*. 
 
 ### For Corr-AE methods
 
@@ -35,7 +35,7 @@ Detailed description is provided in our paper.
 2. run the python script file *genNPYdata.py* in *code/deepnet-master/deepnet/examples/yutinghu/* to generate the input data for Corr-AE methods.
 3. install deepnet and its dependencies with patience following the instruction *INSTALL.TXT* in *code/deepnet-master/*.
 4. run *runall\_all.sh* in *code/deepnet-master/deepnet/examples/yutinghu/wikipedia/* or *flickr30k/*, *twitter100k*.
-5. run *retrieve\_corr\_ae.py* for a specific dataset.
+5. run *retrieve\_corr\_ae.py* for a specific dataset and the results of the rank of ground truth will be saved in *result/rank/*. 
 
 ## Result Files
 
