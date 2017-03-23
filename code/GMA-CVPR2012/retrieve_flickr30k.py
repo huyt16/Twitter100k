@@ -45,7 +45,7 @@ for baseline in ['pls','cca','blm','mfa']:
 			if temp<pos:
 				pos=temp
                 rank[i]=pos
-        np.save(savepath+baseline+'_im2txt_rank',rank)
+        sio.savemat(savepath+baseline+'_im2txt_rank.mat',{'rank':rank})
 
 	print 'txt2im'
 	rank=np.zeros((nb_test,))
@@ -57,4 +57,4 @@ for baseline in ['pls','cca','blm','mfa']:
 	order=dist.argsort()
 	for i in np.arange(nb_test):
 		rank[i]=order[i,:].tolist().index(test_file_index[i])
-	np.save(savepath+baseline+'_txt2im_rank',rank)
+	sio.savemat(savepath+baseline+'_txt2im_rank.mat',{'rank':rank})
