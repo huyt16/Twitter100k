@@ -5,7 +5,7 @@ import os
 
 print 'load data! Wait please!'
 dataset='twitter100k'
-root='../../feature/'+dataset'
+root='../../feature/'+dataset
 image=sio.loadmat(root+'/test_image.mat')['image']
 text=sio.loadmat(root+'/lda.mat')['text']
 #text=sio.loadmat(root+'/text_word2vec_bow.mat')['text']
