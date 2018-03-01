@@ -40,3 +40,10 @@ Detailed description is provided in our paper.
 ## Result Files
 
 You can download the results of CMC saved in MAT-file format for direct comparison. 
+
+## Data
+Twitter100k http://203.91.121.76/wp-content/uploads/twitter100k.tar
+Dataset_split http://203.91.121.76/wp-content/uploads/dataset_split.tar
+
+## Homepage
+I'm quite sorry that my homepage (http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/) are not accessible now. I'll try to fix it as soon as possible. If you have any questions, please contact me by email (huyt16@mails.tsinghua.edu.cn).
