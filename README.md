@@ -49,4 +49,4 @@ You can download the results of CMC saved in MAT-file format for direct comparis
 <a href="http://203.91.121.76/wp-content/uploads/dataset_split.tar"> Dataset_split </a> (2M)
 
 ## Homepage
-I'm quite sorry that my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu"> homepage </a> are not accessible now. I'll try to fix it as soon as possible. If you have any questions, please contact me by email (huyt16@mails.tsinghua.edu.cn).
+I'm quite sorry that my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu"> homepage </a> is not accessible now. I'll try to fix it as soon as possible. If you have any questions, please contact me by email (huyt16@mails.tsinghua.edu.cn).
