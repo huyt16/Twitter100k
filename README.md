@@ -42,11 +42,11 @@ Detailed description is provided in our paper.
 You can download the results of CMC saved in MAT-file format for direct comparison. 
 
 ## Data
-<a href="http://203.91.121.76/wp-content/uploads/twitter100k.tar"> The Twitter100k dataset </a> (10G)
+<a href="ngnlab.cn/wp-content/uploads/twitter100k.tar"> The Twitter100k dataset </a> (10G)
 
-<a href="http://203.91.121.76/wp-content/uploads/samples.tar"> Samples of Twitter100k </a> (8.4M)
+<a href="ngnlab.cn/wp-content/uploads/samples.tar"> Samples of Twitter100k </a> (8.4M)
 
-<a href="http://203.91.121.76/wp-content/uploads/dataset_split.tar"> Dataset_split </a> (2M)
+<a href="ngnlab.cn/wp-content/uploads/dataset_split.tar"> Dataset_split </a> (2M)
 
 ## Homepage
 I'm quite sorry that my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu"> homepage </a> is not accessible now. I'll try to fix it as soon as possible. If you have any questions, please contact me by email (huyt16@mails.tsinghua.edu.cn).
