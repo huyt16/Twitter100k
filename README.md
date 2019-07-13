@@ -1,3 +1,6 @@
+## All the links work now! 
+
+
 # Twitter100k: A Real-world Dataset for Weakly Supervised Cross-Media Retrieval
 
 Yuting Hu, Liang Zheng, Yi Yang, and Yongfeng Huang
@@ -24,14 +27,14 @@ Detailed description is provided in our paper.
 
 ### For subspace learning methods (CCA, PLS, BLM, GMMFA)
 
-1. download the data of the three benckmark datasets from my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/"> homepage</a> and put them into the folders *feature/* or other folders convenient to you.
+1. download the data of the three benckmark datasets (<a href="https://cloud.tsinghua.edu.cn/f/09a4ce7aad074a4394d2/?dl=1"> Twitter100k_feature (3.5G)</a>, <a href="https://cloud.tsinghua.edu.cn/d/4b5379592a284decb7ae/"> Flickr30k_feature (5.5G)</a>, <a href="https://cloud.tsinghua.edu.cn/f/165df8449a2049afadd9/?dl=1"> Wikipedia_feature (102M)</a>) and put them into the folders *feature/* or other folders convenient to you.
 2. modify the dataset name and the data path variables of the script file *run_baseline.m* in *code/GMA-CVPR2012/*.
 3. run the matlab script file *run_baseline.m*.
 4. run *retrieve.py* for a specific dataset and the results of the rank of ground truth will be saved in *result/rank/*. 
 
 ### For Corr-AE methods
 
-1. download the data of the three benckmark datasets from my <a href="http://ngn.ee.tsinghua.edu.cn/members/yuting-hu/"> homepage</a> and put them into the folders *feature/* or other folders convenient to you.
+1. download the data of the three benckmark datasets (<a href="https://cloud.tsinghua.edu.cn/f/15b2e353ae764a0cbd8e/?dl=1"> Twitter100k (2.0G)</a> , <a href="https://cloud.tsinghua.edu.cn/f/69761f0a3d7544bbb458/?dl=1"> Flickr30k (1.9G)</a> , <a href="https://cloud.tsinghua.edu.cn/f/000d178358cd48db87d8/?dl=1"> Wikipedia (59M)</a>) and put them into the folders *feature/* or other folders convenient to you.
 2. run the python script file *genNPYdata.py* in *code/deepnet-master/deepnet/examples/yutinghu/* to generate the input data for Corr-AE methods.
 3. install deepnet and its dependencies with patience following the instruction *INSTALL.TXT* in *code/deepnet-master/*.
 4. run *runall\_all.sh* in *code/deepnet-master/deepnet/examples/yutinghu/wikipedia/* or *flickr30k/*, *twitter100k*.
@@ -42,8 +45,8 @@ Detailed description is provided in our paper.
 You can download the results of CMC saved in MAT-file format for direct comparison. 
 
 ## Data
-<a href="http://ngnlab.cn/wp-content/uploads/twitter100k.tar"> The Twitter100k dataset </a> (10G)
+<a href="https://cloud.tsinghua.edu.cn/d/9148b077dfa44fb9ab6c/"> The Twitter100k dataset </a> (10G)
 
-<a href="http://ngnlab.cn/wp-content/uploads/samples.tar"> Samples of Twitter100k </a> (8.4M)
+<a href="https://cloud.tsinghua.edu.cn/f/71a24692c919434ab28c/?dl=1"> Samples of Twitter100k </a> (8.3M)
 
-<a href="http://ngnlab.cn/wp-content/uploads/dataset_split.tar"> Dataset_split </a> (2M)
+<a href="https://cloud.tsinghua.edu.cn/f/f0da5cbe020f4e678050/?dl=1"> Dataset_split </a> (2M)
