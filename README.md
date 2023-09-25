@@ -45,8 +45,4 @@ Detailed description is provided in our paper.
 You can download the results of CMC saved in MAT-file format for direct comparison. 
 
 ## Data
-<a href="https://cloud.tsinghua.edu.cn/d/9148b077dfa44fb9ab6c/"> The Twitter100k dataset </a> (10G)
-
-<a href="https://cloud.tsinghua.edu.cn/f/71a24692c919434ab28c/?dl=1"> Samples of Twitter100k </a> (8.3M)
-
-<a href="https://cloud.tsinghua.edu.cn/f/f0da5cbe020f4e678050/?dl=1"> Dataset_split </a> (2M)
+<a href="https://pan.baidu.com/s/15m_qZSsQH4edUaCIvnVe6g"> The Twitter100k dataset </a> (10G)  Access Code：tifl
